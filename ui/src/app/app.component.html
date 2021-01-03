@@ -1,0 +1,24 @@
+<div class="banner-top"></div>
+<div class="container">
+  <div class="header">
+    <h1>Scrape jobs</h1>
+    <span class="spacer"></span>
+    <button (click)="onCreateClick()" color="primary" mat-stroked-button>Reload</button>
+    <button (click)="onCreateClick()" color="primary" mat-raised-button>Create Job</button>
+  </div>
+
+  <div *ngIf="true; else nocards" class="card-container">
+    <app-job-card *ngFor="let job of jobs$ | async" [job]="job"></app-job-card>
+  </div>
+
+  <ng-template #nocards>
+    <div style="text-align: center; margin-top: 100px" class="no-cards-container">
+      <h3>No jobs found</h3>
+      <p>
+        <button color="primary" mat-button>Create one</button>
+        or
+        <button color="primary" mat-button>Reload</button>
+      </p>
+    </div>
+  </ng-template>
+</div>

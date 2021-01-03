@@ -1,0 +1,21 @@
+<mat-card *ngIf="job; else noJob" style="position: relative" class="mat-elevation-z4">
+  <mat-card-title>{{ job!.name }}</mat-card-title>
+  <mat-card-content>
+    <pre>{{ job | json }}</pre>
+    <p>
+      <span class="mat-body-strong">API: </span>
+      http://localhost:3000/jobs/1203012931238821/result
+      <button mat-icon-button>
+        <mat-icon color="primary">content_copy</mat-icon>
+      </button>
+    </p>
+  </mat-card-content>
+  <button style="position: absolute; top: 5px; right: 5px" mat-icon-button>
+    <mat-icon>create_outline</mat-icon>
+  </button>
+  <button style="position: absolute; top: 5px; right: 40px" mat-icon-button>
+    <mat-icon> delete_outline </mat-icon>
+  </button>
+</mat-card>
+
+<ng-template #noJob> No job passed to job-card component. </ng-template>

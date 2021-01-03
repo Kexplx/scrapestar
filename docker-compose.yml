@@ -1,0 +1,27 @@
+services:
+  api:
+    container_name: scrape-app__api
+    restart: always
+    build:
+      context: api
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    depends_on:
+      - mongodb
+  ui:
+    container_name: scrape-app__ui
+    build:
+      context: ui
+      dockerfile: Dockerfile
+    ports:
+      - '5000:5000'
+    depends_on:
+      - api
+  mongodb:
+    container_name: scrape-app__mongodb
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - '27017:27017'

@@ -1,0 +1,18 @@
+form {
+  display: grid;
+  width: 400px;
+}
+
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.selector-container {
+  display: grid;
+}
+
+.selectors-header {
+  display: grid;
+  grid-template-columns: auto au;
+}

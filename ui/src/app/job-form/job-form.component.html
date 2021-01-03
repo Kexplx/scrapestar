@@ -1,0 +1,39 @@
+<form [formGroup]="formGroup" autocomplete="off">
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input [formControl]="name" matInput type="text" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>CSS selector</mat-label>
+    <textarea [formControl]="url" placeholder="https://wikipedia.org" matInput type="text"></textarea>
+    <mat-hint>The CSS selector of the HTML element you want to scrape.</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>URL</mat-label>
+    <input [formControl]="url" placeholder="https://wikipedia.org" matInput type="text" />
+  </mat-form-field>
+
+  <section>
+    <h3>Selectors</h3>
+    <div class="selector-container">
+      <mat-form-field>
+        <mat-label>Property name</mat-label>
+        <input [formControl]="url" placeholder="https://wikipedia.org" matInput type="text" />
+        <mat-hint>This will be the name of this property in the result</mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>CSS selector</mat-label>
+        <textarea [formControl]="url" placeholder="https://wikipedia.org" matInput type="text"></textarea>
+        <mat-hint>The CSS selector of the HTML element you want to scrape.</mat-hint>
+      </mat-form-field>
+    </div>
+    <button mat-stroked-button>Add</button>
+  </section>
+
+  <div class="form-footer">
+    <button mat-button>Cancel</button>
+    <button mat-raised-button color="primary">Submit</button>
+  </div>
+</form>
