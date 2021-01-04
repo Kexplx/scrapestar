@@ -2,8 +2,8 @@ import { Collection, MongoClient, ObjectId } from 'mongodb';
 import { inProduction } from '../env/in-production';
 import { JobDto } from '../models/job-dto';
 
-// If we're in production, we change the hostname to the mongodbs
-// container name which is rererenced in `docker-compose.yml`.
+// If we're in production, change the
+// hostname to the mongodb container name.
 const MONGODB_URL = inProduction
   ? 'mongodb://scrape-app__mongodb:27017'
   : 'mongodb://localhost:27017';
