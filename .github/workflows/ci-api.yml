@@ -26,5 +26,9 @@ jobs:
         run: npm run build
         working-directory: ${{env.working-directory}}
 
+      - name: Lint
+        run: npm run lint
+        working-directory: ${{env.working-directory}}
+
       # - name: Run unit tests
       #   run: npm run test
