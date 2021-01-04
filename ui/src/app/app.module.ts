@@ -11,7 +11,13 @@ import { CreateJobDialogComponent } from './create-job-dialog/create-job-dialog.
 import { EditJobDialogComponent } from './edit-job-dialog/edit-job-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, JobCardComponent, JobFormComponent, CreateJobDialogComponent, EditJobDialogComponent],
+  declarations: [
+    AppComponent,
+    JobCardComponent,
+    JobFormComponent,
+    CreateJobDialogComponent,
+    EditJobDialogComponent,
+  ],
   imports: [BrowserModule, SharedModule, HttpClientModule],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpProxy, multi: true }],
   bootstrap: [AppComponent],
