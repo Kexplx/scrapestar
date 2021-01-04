@@ -1,0 +1,2 @@
+<h1>Edit {{ job.name }}</h1>
+<app-job-form [job]="job" (cancelled)="onFormCancel()" (submitted)="onFormSubmit($event)"></app-job-form>

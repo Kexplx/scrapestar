@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Job } from '../models/job';
 
 @Component({
@@ -6,10 +6,17 @@ import { Job } from '../models/job';
   templateUrl: './job-card.component.html',
   styleUrls: ['./job-card.component.scss'],
 })
-export class JobCardComponent implements OnInit {
-  @Input() job: Job | undefined;
+export class JobCardComponent {
+  @Output() editClicked = new EventEmitter();
+  @Output() deleteClicked = new EventEmitter();
 
-  constructor() {}
+  @Input() job!: Job;
 
-  ngOnInit(): void {}
+  onEdit() {
+    this.editClicked.emit();
+  }
+
+  onDelete() {
+    this.deleteClicked.emit();
+  }
 }

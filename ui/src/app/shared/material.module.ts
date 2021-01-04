@@ -14,14 +14,22 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatListModule } from '@angular/material/list';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { A11yModule } from '@angular/cdk/a11y';
 
 @NgModule({
   exports: [
     MatCheckboxModule,
     MatCardModule,
     MatChipsModule,
+    MatListModule,
     MatButtonModule,
+    ClipboardModule,
+    A11yModule,
     MatDialogModule,
+    MatTooltipModule,
     MatInputModule,
     MatTabsModule,
     MatAutocompleteModule,

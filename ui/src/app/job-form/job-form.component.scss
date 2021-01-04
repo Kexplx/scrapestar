@@ -1,11 +1,9 @@
-form {
-  display: grid;
-  width: 400px;
-}
+@import 'src/styles/utils';
 
 .form-footer {
   display: flex;
   justify-content: space-between;
+  margin-top: 20px;
 }
 
 .selector-container {
@@ -15,4 +13,30 @@ form {
 .selectors-header {
   display: grid;
   grid-template-columns: auto au;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.mat-list-item-body {
+  display: grid;
+  width: 100%;
+  gap: 0 10px;
+  align-items: center;
+  grid-template-columns: auto 1fr auto auto;
+
+  mat-icon {
+    font-size: 20px;
+  }
+}
+
+.add-button {
+  text-align: end;
+  margin-top: 10px;
+}
+
+.no-selectors-hint-container {
+  text-align: center;
+  width: 100%;
 }

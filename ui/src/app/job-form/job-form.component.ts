@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ExecutionTime } from '../models/execution-time';
 import { Job } from '../models/job';
+import { Selector } from '../models/selector';
 
 @Component({
   selector: 'app-job-form',
@@ -9,79 +10,68 @@ import { Job } from '../models/job';
 })
 export class JobFormComponent implements OnInit {
   @Input() job: Job | undefined;
-  formGroup!: FormGroup;
 
-  get name(): FormControl {
-    return this.formGroup.get('name') as FormControl;
-  }
+  @Output() submitted = new EventEmitter<Job>();
+  @Output() cancelled = new EventEmitter<Job>();
 
-  get url(): FormControl {
-    return this.formGroup.get('url') as FormControl;
-  }
+  name = '';
+  url = '';
+  description = '';
 
-  get selectors(): FormArray {
-    return this.formGroup.get('selectors') as FormArray;
-  }
+  selectorName = '';
+  cssSelector = '';
 
-  get executionTimes(): FormArray {
-    return this.formGroup.get('executionTimes') as FormArray;
-  }
+  dayOfWeek = 1;
+  hour = 8;
+  minute = 0;
 
-  constructor(private fb: FormBuilder) {}
+  selectors: Selector[] = [];
+  executionTimes: ExecutionTime[] = [];
 
   ngOnInit() {
-    this.job ??= this.generateDefaultJob();
+    if (this.job) {
+      const { name, url, executionTimes, selectors } = this.job;
 
-    const { name, url, selectors, executionTimes } = this.job;
-
-    this.formGroup = this.fb.group({
-      name,
-      url,
-      selectors: new FormArray(
-        selectors.map(({ cssSelector, name }) => this.fb.group({ name, cssSelector })),
-      ),
-      executionTimes: new FormArray(
-        executionTimes.map(({ dayOfWeek, hour, minute }) =>
-          this.fb.group({ dayOfWeek, hour, minute }),
-        ),
-      ),
-    });
+      this.name = name;
+      this.url = url;
+      this.selectors = selectors;
+      this.executionTimes = executionTimes;
+    }
   }
 
   onAddSelector() {
-    const group = this.fb.group({
-      name: '',
-      cssSelector: '',
-    });
+    // Validate `selectorName` and `cssSelector`
 
-    this.selectors.push(group);
+    const name = this.selectorName;
+    const cssSelector = this.cssSelector;
+
+    this.selectors.push({ name, cssSelector });
+
+    this.selectorName = '';
+    this.cssSelector = '';
   }
 
-  onAddExecutionTime() {
-    const group = this.fb.group({
-      dayOfWeek: 1,
-      hour: 8,
-      minute: 0,
-    });
+  onRemoveSelector(selector: Selector) {
+    const indexOf = this.selectors.indexOf(selector);
 
-    this.executionTimes.push(group);
+    if (indexOf != -1) {
+      this.selectors.splice(indexOf, 1);
+    }
   }
 
-  private generateDefaultJob(): Job {
+  onSubmit() {
     const job: Job = {
-      name: '',
-      url: '',
-      selectors: [],
-      executionTimes: [
-        { dayOfWeek: 1, hour: 8, minute: 0 }, // Monday
-        { dayOfWeek: 2, hour: 8, minute: 0 },
-        { dayOfWeek: 3, hour: 8, minute: 0 },
-        { dayOfWeek: 4, hour: 8, minute: 0 },
-        { dayOfWeek: 5, hour: 8, minute: 0 },
-        { dayOfWeek: 6, hour: 10, minute: 0 }, // Saturday
-      ],
+      ...this.job,
+      name: this.name,
+      url: this.url,
+      selectors: this.selectors,
+      executionTimes: this.executionTimes,
     };
 
-    return job;
+    this.submitted.emit(job);
+  }
+
+  onCancel() {
+    this.cancelled.emit();
   }
 }

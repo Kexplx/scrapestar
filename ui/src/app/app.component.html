@@ -3,22 +3,22 @@
   <div class="header">
     <h1>Scrape jobs</h1>
     <span class="spacer"></span>
-    <button (click)="onCreateClick()" color="primary" mat-stroked-button>Reload</button>
-    <button (click)="onCreateClick()" color="primary" mat-raised-button>Create Job</button>
+    <button (click)="onReload()" mat-button>Reload</button>
+    <button (click)="onCreate()" color="primary" mat-raised-button>Create job</button>
   </div>
 
-  <div *ngIf="true; else nocards" class="card-container">
-    <app-job-card *ngFor="let job of jobs$ | async" [job]="job"></app-job-card>
-  </div>
-
-  <ng-template #nocards>
-    <div style="text-align: center; margin-top: 100px" class="no-cards-container">
-      <h3>No jobs found</h3>
-      <p>
-        <button color="primary" mat-button>Create one</button>
-        or
-        <button color="primary" mat-button>Reload</button>
-      </p>
-    </div>
-  </ng-template>
+  <ng-container *ngIf="jobs$ | async as jobs">
+    <ng-container *ngIf="jobs.length; else noJobs"></ng-container>
+    <app-job-card (deleteClicked)="onDelete(job)" (editClicked)="onEdit(job)" *ngFor="let job of jobs" [job]="job"></app-job-card>
+    <ng-template #noJobs>
+      <div class="ta-center mt-10">
+        <mat-hint>No jobs found</mat-hint>
+        <p>
+          <button color="primary" mat-button>Create one</button>
+          or
+          <button color="primary" mat-button>Reload</button>
+        </p>
+      </div>
+    </ng-template>
+  </ng-container>
 </div>
