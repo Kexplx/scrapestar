@@ -1,6 +1,6 @@
-import { Job } from './models/job';
+import { Job } from './job';
 import { RecurrenceRule, scheduleJob, Job as ScheduledJob } from 'node-schedule';
-import { JobDtoStore } from './data/job-dto-store';
+import { JobDtoStore } from './job-dto-store';
 
 export class JobScheduler {
   private static instance: JobScheduler | undefined;

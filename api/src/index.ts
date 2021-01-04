@@ -1,6 +1,6 @@
 import express from 'express';
-import { JobDtoStore } from './data/job-dto-store';
-import { Job } from './models/job';
+import { JobDtoStore } from './job-dto-store';
+import { Job } from './job';
 import { JobScheduler } from './job-scheduler';
 import { router as jobRouter } from './routes/jobs';
 import { errorHandler } from './middleware/error-handler';

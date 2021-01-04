@@ -1,6 +1,6 @@
 import { Collection, MongoClient, ObjectId } from 'mongodb';
-import { inProduction } from '../env/in-production';
-import { JobDto } from '../models/job-dto';
+import { inProduction } from './env/in-production';
+import { JobDto } from './interfaces/job-dto';
 
 // If we're in production, change the
 // hostname to the mongodb container name.

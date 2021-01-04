@@ -1,7 +1,7 @@
-import { ExecutionTime } from './execution-time';
-import { JobDto } from './job-dto';
-import { ExecutionResult } from './execution-result';
-import { Selector } from './selector';
+import { ExecutionTime } from './interfaces/execution-time';
+import { JobDto } from './interfaces/job-dto';
+import { ExecutionResult } from './interfaces/execution-result';
+import { Selector } from './interfaces/selector';
 import puppeteer from 'puppeteer';
 
 export class Job {

@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { JobDtoStore } from '../data/job-dto-store';
+import { JobDtoStore } from '../job-dto-store';
 import { JobScheduler } from '../job-scheduler';
-import { Job } from '../models/job';
-import { JobDto } from '../models/job-dto';
+import { Job } from '../job';
+import { JobDto } from '../interfaces/job-dto';
 
 /**
  * Router for handling requests to `/jobs`.
