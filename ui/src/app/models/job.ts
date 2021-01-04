@@ -1,6 +1,6 @@
 import { ExecutionTime } from './execution-time';
 import { ExecutionResult } from './execution-result';
-import { Selector } from "./selector";
+import { Selector } from './selector';
 
 export interface Job {
   _id?: string;
