@@ -26,8 +26,6 @@ export class JobDtoStore {
   static getInstance(): JobDtoStore {
     if (!JobDtoStore.instance) {
       JobDtoStore.instance = new JobDtoStore();
-
-      return JobDtoStore.instance;
     }
 
     return JobDtoStore.instance;

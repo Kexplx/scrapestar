@@ -14,8 +14,6 @@ export class JobScheduler {
   static getInstance(store: JobDtoStore): JobScheduler {
     if (!JobScheduler.instance) {
       JobScheduler.instance = new JobScheduler(store);
-
-      return JobScheduler.instance;
     }
 
     return JobScheduler.instance;
