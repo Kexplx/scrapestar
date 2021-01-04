@@ -3,6 +3,7 @@ import { JobDtoStore } from './data/job-dto-store';
 import { Job } from './models/job';
 import { JobScheduler } from './job-scheduler';
 import { router as jobRouter } from './routes/jobs';
+import { errorHandler } from './middleware/error-handler';
 
 (async () => {
   const PORT = 3000;
@@ -22,6 +23,7 @@ import { router as jobRouter } from './routes/jobs';
 
   // Setup routes and middleware.
   app.use('/jobs', jobRouter);
+  app.use(errorHandler);
   app.use(express.json());
 
   app.listen(PORT, () => console.log(`API listening on port ${PORT}`));

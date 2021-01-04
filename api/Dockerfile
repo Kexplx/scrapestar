@@ -4,8 +4,7 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-# Set inProduction flag to `true`
-RUN echo "export const inProduction = true" > ./src/env/in-production.ts
+ENV NODE_ENV=production
 
 RUN npm i
 

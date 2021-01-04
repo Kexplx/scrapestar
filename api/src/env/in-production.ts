@@ -1,2 +1,1 @@
-// This flag is set to `true` during docker-build.
-export const inProduction = false;
+export const inProduction = process.env.NODE_ENV == 'production';
