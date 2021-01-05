@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { interval, Observable, of } from 'rxjs';
-import { filter, map, skip, switchMap } from 'rxjs/operators';
-import { CreateJobDialogComponent } from './create-job-dialog/create-job-dialog.component';
-import { EditJobDialogComponent } from './edit-job-dialog/edit-job-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { delay, filter, switchMap, tap } from 'rxjs/operators';
+import { JobDialogComponent } from './job-dialog/job-dialog.component';
 import { JobService } from './job.service';
 import { Job } from './models/job';
 
@@ -14,24 +12,31 @@ import { Job } from './models/job';
 })
 export class AppComponent {
   jobs$ = this.jobService.loadJobs();
+  isLoading = true;
 
   constructor(private jobService: JobService, private dialogService: MatDialog) {}
 
   onCreate() {
-    const dialogRef = this.dialogService.open(CreateJobDialogComponent);
+    const dialogRef = this.dialogService.open(JobDialogComponent);
 
     dialogRef
       .afterClosed()
-      .pipe(filter(dataChanged => dataChanged))
+      .pipe(
+        filter(job => job),
+        switchMap(job => this.jobService.postJob(job)),
+      )
       .subscribe(() => (this.jobs$ = this.jobService.loadJobs()));
   }
 
   onEdit(job: Job) {
-    const dialogRef = this.dialogService.open(EditJobDialogComponent, { data: job });
+    const dialogRef = this.dialogService.open(JobDialogComponent, { data: job });
 
     dialogRef
       .afterClosed()
-      .pipe(filter(dataChanged => dataChanged))
+      .pipe(
+        filter(job => job),
+        switchMap(job => this.jobService.updateJob(job)),
+      )
       .subscribe(() => (this.jobs$ = this.jobService.loadJobs()));
   }
 

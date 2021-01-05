@@ -1,18 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ExecutionTime } from '../models/execution-time';
 import { Job } from '../models/job';
 import { Selector } from '../models/selector';
 
 @Component({
-  selector: 'app-job-form',
-  templateUrl: './job-form.component.html',
-  styleUrls: ['./job-form.component.scss'],
+  selector: 'app-edit-job-dialog',
+  templateUrl: './job-dialog.component.html',
+  styleUrls: ['./job-dialog.component.scss'],
 })
-export class JobFormComponent implements OnInit {
-  @Input() job: Job | undefined;
-
-  @Output() submitted = new EventEmitter<Job>();
-  @Output() cancelled = new EventEmitter<Job>();
+export class JobDialogComponent {
+  isCreateDialog = true;
 
   name = '';
   url = '';
@@ -28,14 +26,21 @@ export class JobFormComponent implements OnInit {
   selectors: Selector[] = [];
   executionTimes: ExecutionTime[] = [];
 
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private job: Job | undefined,
+    private dialogRef: MatDialogRef<JobDialogComponent>,
+  ) {
+    this.isCreateDialog = job === undefined;
+  }
+
   ngOnInit() {
     if (this.job) {
       const { name, url, executionTimes, selectors } = this.job;
 
       this.name = name;
       this.url = url;
-      this.selectors = selectors;
-      this.executionTimes = executionTimes;
+      this.selectors = [...selectors];
+      this.executionTimes = [...executionTimes];
     }
   }
 
@@ -68,10 +73,10 @@ export class JobFormComponent implements OnInit {
       executionTimes: this.executionTimes,
     };
 
-    this.submitted.emit(job);
+    this.dialogRef.close(job);
   }
 
   onCancel() {
-    this.cancelled.emit();
+    this.dialogRef.close();
   }
 }

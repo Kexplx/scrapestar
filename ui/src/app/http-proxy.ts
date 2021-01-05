@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Job } from './models/job';
+import { delay } from 'rxjs/operators';
 
 /**
  * A Proxy that immitates the backend.
@@ -25,16 +26,19 @@ export class HttpProxy implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>): Observable<HttpResponse<any>> {
     const method: 'GET' | 'POST' | 'DELETE' | 'PUT' = req.method as any;
-
+    let sourc$: Observable<any>;
     if (method === 'GET') {
-      return this.getAll();
+      sourc$ = this.getAll();
     } else if (method === 'DELETE') {
-      return this.delete(this.getIdFromUrl(req.url));
+      sourc$ = this.delete(this.getIdFromUrl(req.url));
     } else if (method == 'PUT') {
-      return this.update(this.getIdFromUrl(req.url), req.body);
+      sourc$ = this.update(this.getIdFromUrl(req.url), req.body);
     } else {
-      return this.post(req.body);
+      sourc$ = this.post(req.body);
     }
+
+    // Simulate response time.
+    return sourc$;
   }
 
   private post(job: Job) {

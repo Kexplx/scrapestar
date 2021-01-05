@@ -1,4 +1,5 @@
 <form #form="ngForm" spellcheck="false" autocomplete="off" (ngSubmit)="onSubmit()" autocomplete="off">
+  <h1>{{ isCreateDialog ? 'Create job' : 'Edit job' }}</h1>
   <mat-accordion>
     <mat-expansion-panel expanded>
       <mat-expansion-panel-header>
@@ -7,13 +8,13 @@
       <mat-form-field>
         <mat-label>Name</mat-label>
         <input cdkFocusInitial [(ngModel)]="name" name="name" matInput required type="text" />
-        <mat-hint [align]="'end'">A name of your choice.</mat-hint>
+        <mat-hint [align]="'end'">A name of your choice</mat-hint>
         <mat-error>You must enter a name</mat-error>
       </mat-form-field>
       <mat-form-field class="mt-1">
         <mat-label>Description</mat-label>
         <textarea matInput type="text"></textarea>
-        <mat-hint [align]="'end'">Describe the purpose of this job.</mat-hint>
+        <mat-hint [align]="'end'">Describe the purpose of this job</mat-hint>
       </mat-form-field>
       <mat-form-field>
         <mat-label>URL</mat-label>
@@ -30,7 +31,7 @@
       <mat-list dense>
         <mat-list-item *ngIf="!selectors.length">
           <div class="no-selectors-hint-container">
-            <mat-hint>No selectors for this job.</mat-hint>
+            <mat-hint>No selectors for this job</mat-hint>
           </div>
         </mat-list-item>
 
@@ -56,7 +57,7 @@
       <mat-form-field>
         <mat-label>CSS selector</mat-label>
         <textarea placeholder="#www-wikipedia-org > div.central-textlogo > h1 > span" [(ngModel)]="cssSelector" name="cssSelector" matInput type="text"></textarea>
-        <mat-hint align="end">The CSS selector of the HTML element.</mat-hint>
+        <mat-hint align="end">The CSS selector of a HTML element</mat-hint>
       </mat-form-field>
 
       <div class="add-button">
