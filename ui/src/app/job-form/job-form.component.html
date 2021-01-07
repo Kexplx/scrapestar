@@ -1,0 +1,115 @@
+<form #form="ngForm" spellcheck="false" autocomplete="off" (ngSubmit)="onSubmit()" autocomplete="off">
+  <mat-accordion>
+    <mat-expansion-panel expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Metainformation</mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input cdkFocusInitial [(ngModel)]="name" name="name" matInput required type="text" />
+        <mat-hint align="end">A name of your choice</mat-hint>
+        <mat-error>You must enter a name</mat-error>
+      </mat-form-field>
+      <mat-form-field class="mt-1">
+        <mat-label>Description</mat-label>
+        <textarea matInput type="text"></textarea>
+        <mat-hint align="end">Describe the purpose of this job</mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>URL</mat-label>
+        <textarea placeholder="https://wikipedia.org" [(ngModel)]="url" name="url" required matInput type="url"></textarea>
+        <mat-hint align="end">The URL of the page you want to scrape</mat-hint>
+        <mat-error>You muster enter a URL</mat-error>
+      </mat-form-field>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Selectors ({{ selectors.length }})</mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-hint class="mb-2">Specify a name of the data you want to scrape and the CSS selector of the corresponding HTML element.</mat-hint>
+      <mat-list dense>
+        <mat-list-item *ngFor="let item of selectors; let last = last">
+          <div class="selector">
+            <span>{{ item.name }}</span>
+            <span [title]="item.cssSelector">{{ item.cssSelector | sliceWithPostfix: 60 }}</span>
+            <button matTooltip="Copy CSS selector" matTooltipPosition="above" type="button" [cdkCopyToClipboard]="item.cssSelector" mat-icon-button>
+              <mat-icon>content_copy</mat-icon>
+            </button>
+            <button (click)="onRemoveSelector(item)" mat-icon-button>
+              <mat-icon>remove</mat-icon>
+            </button>
+          </div>
+          <mat-divider *ngIf="!last"></mat-divider>
+        </mat-list-item>
+      </mat-list>
+      <mat-form-field class="mt-1">
+        <mat-label>Data name</mat-label>
+        <input [(ngModel)]="selectorName" placeholder="wikiPediaTitle" name="selectorName" matInput type="text" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>CSS selector</mat-label>
+        <textarea placeholder="#www-wikipedia-org > div.central-textlogo > h1 > span" [(ngModel)]="cssSelector" name="cssSelector" matInput type="text"></textarea>
+        <mat-hint align="end">The CSS selector of a HTML element</mat-hint>
+      </mat-form-field>
+      <div class="add-button">
+        <button [disabled]="!cssSelector.length || !selectorName.length" (click)="onAddSelector()" mat-raised-button>Add selector</button>
+      </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Execution times ({{ executionTimes.length }})</mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-hint>Enter execution times to specify when this job should be executed repeatedly.</mat-hint>
+
+      <mat-list class="mb-2" dense>
+        <mat-list-item *ngFor="let item of executionTimes; let last = last">
+          <div style="display: grid; grid-template-columns: 1fr auto; width: 100%; align-items: center">
+            <span>{{ item.dayOfWeek | weekday }} at {{ item.hour | zeroprefix }}:{{ item.minute | zeroprefix }}</span>
+            <button (click)="onRemoveExecutionTime(item)" mat-icon-button>
+              <mat-icon>remove</mat-icon>
+            </button>
+          </div>
+          <mat-divider *ngIf="!last"></mat-divider>
+        </mat-list-item>
+      </mat-list>
+
+      <div style="display: grid; grid-template-columns: auto 100px 100px; gap: 0 10px" class="div">
+        <mat-form-field>
+          <mat-label>Weekday</mat-label>
+          <mat-select [(value)]="dayOfWeek">
+            <mat-option [value]="1"> {{ 1 | weekday }} </mat-option>
+            <mat-option [value]="2"> {{ 2 | weekday }} </mat-option>
+            <mat-option [value]="3"> {{ 3 | weekday }} </mat-option>
+            <mat-option [value]="4"> {{ 4 | weekday }} </mat-option>
+            <mat-option [value]="5"> {{ 5 | weekday }} </mat-option>
+            <mat-option [value]="6"> {{ 6 | weekday }} </mat-option>
+            <mat-option [value]="0"> {{ 0 | weekday }} </mat-option>
+          </mat-select>
+          <mat-hint *ngIf="hourControl.valid && minuteControl.valid"
+            >The job will execute every <strong>{{ dayOfWeek | weekday | lowercase }} at {{ hourControl.value | zeroprefix }}:{{ minuteControl.value | zeroprefix }}</strong>
+          </mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Hours</mat-label>
+          <input [formControl]="hourControl" matInput type="number" />
+          <mat-error>Value must be between 0 - 23</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Minutes</mat-label>
+          <input [formControl]="minuteControl" matInput type="number" />
+          <mat-error>Value must be between 0 - 59</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="add-button">
+        <button type="button" [disabled]="hourControl.invalid || minuteControl.invalid" (click)="onAddExecutionTime()" mat-raised-button>Add execution time</button>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <div class="form-footer">
+    <button type="button" (click)="onCancel()" mat-button>Cancel</button>
+    <button [disabled]="form.invalid" mat-raised-button color="primary">Submit</button>
+  </div>
+</form>

@@ -1,5 +1,13 @@
 @import 'src/styles/utils';
 
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  display: grid;
+  gap: 10px;
+}
+
 .form-footer {
   display: flex;
   justify-content: space-between;
@@ -19,12 +27,17 @@ mat-form-field {
   width: 100%;
 }
 
-.mat-list-item-body {
+.selector {
   display: grid;
   width: 100%;
   gap: 0 10px;
   align-items: center;
   grid-template-columns: auto 1fr auto auto;
+
+  pre {
+    font-size: 13px;
+    margin: 3px;
+  }
 
   mat-icon {
     font-size: 20px;

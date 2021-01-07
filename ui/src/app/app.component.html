@@ -1,24 +1,4 @@
 <div class="banner-top"></div>
 <div class="container">
-  <div class="header">
-    <h1>Scrape jobs</h1>
-    <span class="spacer"></span>
-    <button (click)="onReload()" mat-button>Reload</button>
-    <button (click)="onCreate()" color="primary" mat-raised-button>Create job</button>
-  </div>
-
-  <ng-container *ngIf="jobs$ | async as jobs">
-    <ng-container *ngIf="jobs.length; else noJobs"></ng-container>
-    <app-job-card (deleteClicked)="onDelete(job)" (editClicked)="onEdit(job)" *ngFor="let job of jobs" [job]="job"></app-job-card>
-    <ng-template #noJobs>
-      <div class="ta-center mt-10">
-        <mat-hint>No jobs found</mat-hint>
-        <p>
-          <button (click)="onCreate()" color="primary" mat-button>Create one</button>
-          or
-          <button (click)="onReload()" color="primary" mat-button>Reload</button>
-        </p>
-      </div>
-    </ng-template>
-  </ng-container>
+  <router-outlet></router-outlet>
 </div>

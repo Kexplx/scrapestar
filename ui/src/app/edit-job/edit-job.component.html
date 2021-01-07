@@ -1,0 +1,5 @@
+<h1 class="mb-5">Edit job</h1>
+
+<ng-container *ngIf="job$ | async as job">
+  <app-job-form (submitted)="onSubmit($event)" (cancelled)="onCancel()" [job]="job"></app-job-form>
+</ng-container>

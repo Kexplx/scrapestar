@@ -1,4 +1,4 @@
-<mat-card *ngIf="job; else noJob" class="mt-1 mat-elevation-z4">
+<mat-card *ngIf="job" class="mb-1 mat-elevation-z3">
   <mat-card-title>{{ job.name }}</mat-card-title>
   <mat-card-content>
     <pre>{{ job | json }}</pre>
@@ -10,9 +10,7 @@
   <button (click)="onDelete()" id="btnDelete" mat-icon-button>
     <mat-icon> delete_outline </mat-icon>
   </button>
-  <button (click)="onEdit()" id="btnEdit" mat-icon-button>
-    <mat-icon>create_outline</mat-icon>
-  </button>
+  <a (click)="onEdit()" id="btnEdit" mat-icon-button>
+    <mat-icon>create</mat-icon>
+  </a>
 </mat-card>
-
-<ng-template #noJob> No job passed to job-card component. </ng-template>

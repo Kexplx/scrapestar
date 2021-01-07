@@ -28,7 +28,13 @@ export class HttpProxy implements HttpInterceptor {
     const method: 'GET' | 'POST' | 'DELETE' | 'PUT' = req.method as any;
     let sourc$: Observable<any>;
     if (method === 'GET') {
-      sourc$ = this.getAll();
+      try {
+        const id = this.getIdFromUrl(req.url);
+        // singleGet
+        sourc$ = this.get(id);
+      } catch (error) {
+        sourc$ = this.getAll();
+      }
     } else if (method === 'DELETE') {
       sourc$ = this.delete(this.getIdFromUrl(req.url));
     } else if (method == 'PUT') {
@@ -71,5 +77,11 @@ export class HttpProxy implements HttpInterceptor {
     const idRegex = /http:\/\/localhost:3000\/jobs\/(.*)/;
 
     return idRegex.exec(url)![1].replace('/', '');
+  }
+
+  private get(id: string) {
+    const job = this.jobs.find(j => j._id === id)!;
+
+    return of(new HttpResponse({ body: job }));
   }
 }

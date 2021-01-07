@@ -18,6 +18,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatListModule } from '@angular/material/list';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { A11yModule } from '@angular/cdk/a11y';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   exports: [
@@ -29,6 +30,7 @@ import { A11yModule } from '@angular/cdk/a11y';
     ClipboardModule,
     A11yModule,
     MatDialogModule,
+    MatSelectModule,
     MatTooltipModule,
     MatInputModule,
     MatTabsModule,

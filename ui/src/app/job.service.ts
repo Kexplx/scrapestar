@@ -13,6 +13,12 @@ export class JobService {
     return this.http.post(this.baseUrl, job);
   }
 
+  get(id: string) {
+    const url = this.baseUrl + '/' + id;
+
+    return this.http.get<Job>(url);
+  }
+
   loadJobs() {
     const url = this.baseUrl;
 
