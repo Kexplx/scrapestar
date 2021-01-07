@@ -38,8 +38,6 @@ export class JobFormComponent implements OnInit {
   selectors: Selector[] = [];
   executionTimes: ExecutionTime[] = [];
 
-  constructor(private changeDetection: ChangeDetectorRef) {}
-
   ngOnInit() {
     if (this.job) {
       const { name, url, executionTimes, selectors } = this.job;

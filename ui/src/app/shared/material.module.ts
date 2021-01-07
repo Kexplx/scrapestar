@@ -19,9 +19,11 @@ import { MatListModule } from '@angular/material/list';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { A11yModule } from '@angular/cdk/a11y';
 import { MatSelectModule } from '@angular/material/select';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   exports: [
+    MatIconModule,
     MatCheckboxModule,
     MatCardModule,
     MatChipsModule,
@@ -29,6 +31,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatButtonModule,
     ClipboardModule,
     A11yModule,
+    MatToolbarModule,
     MatDialogModule,
     MatSelectModule,
     MatTooltipModule,
@@ -40,7 +43,6 @@ import { MatSelectModule } from '@angular/material/select';
     MatExpansionModule,
     MatSnackBarModule,
     MatTableModule,
-    MatIconModule,
   ],
 })
 export class MaterialModule {}

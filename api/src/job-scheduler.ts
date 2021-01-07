@@ -27,6 +27,7 @@ export class JobScheduler {
       rule.minute = minute;
 
       const scheduledJob = scheduleJob(rule, async () => {
+        await job.execute();
         this.store.update(job.dto);
       });
 
@@ -38,9 +39,5 @@ export class JobScheduler {
     const scheduledJob = this.scheduledJobs.get(job.id);
 
     scheduledJob?.cancel();
-  }
-
-  cancelAll(): void {
-    this.scheduledJobs.forEach(job => job.cancel());
   }
 }

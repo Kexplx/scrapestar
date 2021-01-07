@@ -1,13 +1,9 @@
-<div class="header mb-5">
-  <h1>Scrape jobs</h1>
-  <span class="spacer"></span>
-  <button (click)="onReload()" mat-button>Reload</button>
-  <a mat-raised-button routerLink="/create" color="primary">Create job</a>
-</div>
-
+<h2>Jobs</h2>
 <ng-container *ngIf="jobs$ | async as jobs">
   <ng-container *ngIf="jobs.length; else noJobs"></ng-container>
-  <app-job-card (editClicked)="onEdit(job)" (deleteClicked)="onDelete(job)" *ngFor="let job of jobs; let first = first" [job]="job"></app-job-card>
+  <div class="jobs">
+    <app-job-card (editClicked)="onEdit(job)" (deleteClicked)="onDelete(job)" *ngFor="let job of jobs; let first = first" [job]="job"></app-job-card>
+  </div>
   <ng-template #noJobs>
     <div class="ta-center mt-10">
       <mat-hint>No jobs found</mat-hint>
@@ -19,3 +15,7 @@
     </div>
   </ng-template>
 </ng-container>
+
+<a routerLink="/create" color="primary" style="position: fixed; bottom: 40px; right: 40px" mat-fab>
+  <mat-icon>add</mat-icon>
+</a>

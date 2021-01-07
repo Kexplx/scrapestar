@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Job } from './models/job';
-import { delay } from 'rxjs/operators';
 
 /**
  * A Proxy that immitates the backend.
@@ -20,11 +19,30 @@ export class HttpProxy implements HttpInterceptor {
         { name: 'title', cssSelector: '#www-wikipedia-org > div.central-textlogo > h1 > span' },
       ],
     },
+    {
+      url: 'https://www.wikipedia.org/',
+      _id: '120301293138821',
+      name: 'Job #1',
+      executionTimes: [
+        { dayOfWeek: 0, hour: 8, minute: 0 },
+        { dayOfWeek: 0, hour: 8, minute: 0 },
+        { dayOfWeek: 0, hour: 8, minute: 0 },
+        { dayOfWeek: 0, hour: 8, minute: 0 },
+        { dayOfWeek: 0, hour: 8, minute: 0 },
+      ],
+      selectors: [
+        { name: 'title', cssSelector: '#www-wikipedia-org > div.central-textlogo > h1 > span' },
+      ],
+    },
   ];
 
   // private jobs: Job[] = [];
 
-  intercept(req: HttpRequest<any>): Observable<HttpResponse<any>> {
+  intercept(req: HttpRequest<any>, next: any): Observable<HttpResponse<any>> {
+    if (req.url.startsWith('assets')) {
+      return next.handle(req);
+    }
+
     const method: 'GET' | 'POST' | 'DELETE' | 'PUT' = req.method as any;
     let sourc$: Observable<any>;
     if (method === 'GET') {
