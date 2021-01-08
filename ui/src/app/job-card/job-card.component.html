@@ -35,7 +35,6 @@
   </ng-container>
 
   <!-- Execution times -->
-  <!-- Sunday: 8:13, 9:00, 10:15 -->
   <ng-container *ngIf="tabIndex == 2">
     <nz-descriptions nzSize="small" nzBordered>
       <nz-descriptions-item *ngFor="let executionTime of job.executionTimes" [nzSpan]="3" [nzTitle]="executionTime.dayOfWeek | weekday">
@@ -47,6 +46,5 @@
 
 <ng-template #extraTemplate>
   <button (click)="onDelete()" nzType="text" nzDanger routerLink="/" nz-button>Delete</button>
-
   <button (click)="onEdit()" nzType="text" routerLink="/" nz-button>Edit</button>
 </ng-template>

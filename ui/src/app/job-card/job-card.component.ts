@@ -14,7 +14,6 @@ export class JobCardComponent implements OnInit {
   @Output() deleteClicked = new EventEmitter();
 
   nextExecution: Date | undefined;
-
   tabIndex = 0;
 
   constructor(private message: NzMessageService) {}

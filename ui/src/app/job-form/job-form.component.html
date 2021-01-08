@@ -4,7 +4,7 @@
       <i nz-icon nzType="arrow-left"></i>
     </button>
     <div>
-      <button nzType="text" [disabled]="metainformationGroup.valid" (click)="onCheckMetainformationValidity()" nz-button>
+      <button nzType="text" [disabled]="metainformationGroup.valid" (click)="onCheckMetaInformationValidity()" nz-button>
         <i nz-icon nzType="file-search"></i>
       </button>
       <button [nzLoading]="isLoading" class="ml-1" [disabled]="metainformationGroup.invalid" (click)="onSubmit()" nz-button nzType="primary">
@@ -37,7 +37,7 @@
         <span nz-col nzSpan="20">
           {{ selector.cssSelector }}
         </span>
-        <button (click)="onRemoveSelector(selector)" nz-col nz-button nzType="text">
+        <button (click)="onDeleteSelector(selector)" nz-col nz-button nzType="text">
           <i nz-icon nzType="delete"></i>
         </button>
       </div>
@@ -75,7 +75,7 @@
     <nz-descriptions-item *ngFor="let executionTime of executionTimes" [nzSpan]="3" [nzTitle]="executionTime.dayOfWeek | weekday">
       <div nzJustify="space-between" style="align-items: center" nz-row>
         <span nz-col nzSpan="20"> {{ executionTime.hour | zeroprefix }}:{{ executionTime.minute | zeroprefix }} </span>
-        <button (click)="onRemoveExecutionTime(executionTime)" nz-col nz-button nzType="text">
+        <button (click)="onDeleteExecutionTime(executionTime)" nz-col nz-button nzType="text">
           <i nz-icon nzType="delete"></i>
         </button>
       </div>

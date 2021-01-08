@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ExecutionTime } from '../models/execution-time';
 import { Job } from '../models/job';
 import { Selector } from '../models/selector';
@@ -56,7 +56,7 @@ export class JobFormComponent implements OnInit {
     this.selectorGroup.reset();
   }
 
-  onRemoveSelector(selector: Selector) {
+  onDeleteSelector(selector: Selector) {
     const indexOf = this.selectors.indexOf(selector);
 
     if (indexOf != -1) {
@@ -74,21 +74,7 @@ export class JobFormComponent implements OnInit {
     this.executionTimeGroup.setValue({ dayOfWeek: dayOfWeek + (1 % 7), hour: 8, minute: 0 });
   }
 
-  onCheckMetainformationValidity() {
-    for (const i in this.metainformationGroup.controls) {
-      this.metainformationGroup.controls[i].markAsDirty();
-      this.metainformationGroup.controls[i].updateValueAndValidity();
-    }
-  }
-
-  onCheckSelectorFormValidity() {
-    for (const i in this.selectorGroup.controls) {
-      this.selectorGroup.controls[i].markAsDirty();
-      this.selectorGroup.controls[i].updateValueAndValidity();
-    }
-  }
-
-  onRemoveExecutionTime(et: ExecutionTime) {
+  onDeleteExecutionTime(et: ExecutionTime) {
     const indexOf = this.executionTimes.indexOf(et);
 
     if (indexOf != -1) {
@@ -110,5 +96,19 @@ export class JobFormComponent implements OnInit {
 
   onCancel() {
     this.cancelled.emit();
+  }
+
+  onCheckMetaInformationValidity() {
+    for (const i in this.metainformationGroup.controls) {
+      this.metainformationGroup.controls[i].markAsDirty();
+      this.metainformationGroup.controls[i].updateValueAndValidity();
+    }
+  }
+
+  onCheckSelectorFormValidity() {
+    for (const i in this.selectorGroup.controls) {
+      this.selectorGroup.controls[i].markAsDirty();
+      this.selectorGroup.controls[i].updateValueAndValidity();
+    }
   }
 }
