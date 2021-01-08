@@ -1,18 +1,19 @@
-@import 'colors';
-html,
 body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  // background-color: rgb(249, 249, 249);
+  background: #fafafa;
 }
 
-a,
-canvas {
-  outline: none;
+nz-card {
+  border-radius: 5px;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 1px 3px 0 rgba(0, 0, 0, 0.12);
+
+  .ant-card-actions {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
 }
-a {
-  text-decoration: none;
-  color: $link-blue;
+
+.ant-statistic-content-value {
+  font-size: 18px;
 }

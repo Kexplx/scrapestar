@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Job } from './models/job';
 
 @Injectable({
@@ -9,8 +10,8 @@ export class JobService {
   private readonly baseUrl = 'http://localhost:3000/jobs';
   constructor(private http: HttpClient) {}
 
-  postJob(job: Job) {
-    return this.http.post(this.baseUrl, job);
+  postJob(job: Job): Observable<Job> {
+    return this.http.post<Job>(this.baseUrl, job);
   }
 
   get(id: string) {

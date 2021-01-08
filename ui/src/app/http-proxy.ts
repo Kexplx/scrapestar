@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Job } from './models/job';
+import { delay } from 'rxjs/operators';
 
 /**
  * A Proxy that immitates the backend.
@@ -14,29 +15,33 @@ export class HttpProxy implements HttpInterceptor {
       url: 'https://www.wikipedia.org/',
       _id: '1203012931238821',
       name: 'Job #1',
-      executionTimes: [{ dayOfWeek: 0, hour: 8, minute: 0 }],
+      executionTimes: [
+        { dayOfWeek: 1, hour: 8, minute: 50 },
+        { dayOfWeek: 2, hour: 9, minute: 20 },
+      ],
       selectors: [
-        { name: 'title', cssSelector: '#www-wikipedia-org > div.central-textlogo > h1 > span' },
+        {
+          name: 'title',
+          cssSelector: '#www-wikipedia-org > div.central-textlogo > h1 > span',
+        },
       ],
     },
     {
       url: 'https://www.wikipedia.org/',
       _id: '120301293138821',
-      name: 'Job #1',
+      name: 'Job #2',
       executionTimes: [
-        { dayOfWeek: 0, hour: 8, minute: 0 },
-        { dayOfWeek: 0, hour: 8, minute: 0 },
-        { dayOfWeek: 0, hour: 8, minute: 0 },
-        { dayOfWeek: 0, hour: 8, minute: 0 },
-        { dayOfWeek: 0, hour: 8, minute: 0 },
+        { dayOfWeek: 1, hour: 8, minute: 50 },
+        { dayOfWeek: 2, hour: 9, minute: 20 },
       ],
       selectors: [
-        { name: 'title', cssSelector: '#www-wikipedia-org > div.central-textlogo > h1 > span' },
+        {
+          name: 'title',
+          cssSelector: '#www-wikipedia-org > div.central-textlogo > h1 > span',
+        },
       ],
     },
   ];
-
-  // private jobs: Job[] = [];
 
   intercept(req: HttpRequest<any>, next: any): Observable<HttpResponse<any>> {
     if (req.url.startsWith('assets')) {
@@ -61,14 +66,17 @@ export class HttpProxy implements HttpInterceptor {
       sourc$ = this.post(req.body);
     }
 
-    // Simulate response time.
-    return sourc$;
+    // Simulate 200ms response time.
+    return sourc$.pipe(delay(200));
   }
 
   private post(job: Job) {
-    this.jobs.push({ _id: Math.floor(Math.random() * 1919199).toString(), ...job });
+    this.jobs.push({
+      _id: Math.floor(Math.random() * 1919199).toString(),
+      ...job,
+    });
 
-    return of(new HttpResponse({ body: this.jobs }));
+    return of(new HttpResponse({ body: this.jobs[this.jobs.length - 1] }));
   }
 
   private getAll() {

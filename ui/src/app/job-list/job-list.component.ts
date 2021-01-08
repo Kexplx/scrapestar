@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
 import { JobService } from '../job.service';
 import { Job } from '../models/job';
+import { switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-job-list',
@@ -12,16 +12,17 @@ import { Job } from '../models/job';
 })
 export class JobListComponent implements OnInit {
   jobs$ = this.jobService.loadJobs();
-  isLoading = true;
+  isLoading = false;
 
   constructor(private jobService: JobService, private router: Router, private title: Title) {}
 
   ngOnInit() {
-    this.title.setTitle('Jobs / ScrapeApp');
+    this.title.setTitle('Jobs / Scrapestar');
   }
 
   onReload() {
-    this.jobs$ = this.jobService.loadJobs();
+    this.isLoading = true;
+    this.jobs$ = this.jobService.loadJobs().pipe(tap(() => (this.isLoading = false)));
   }
 
   onEdit(job: Job) {

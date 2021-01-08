@@ -14,4 +14,4 @@ RUN npm install serve --silent
 # Store build output in `dist/ui`
 RUN npm run build:prod
 
-CMD echo "Serving UI from http://localhost:5000"; npx serve dist/ui > /dev/null
+CMD echo "Serving UI from http://localhost:5000"; npx serve dist/ui -s > /dev/null

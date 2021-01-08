@@ -1,21 +1,20 @@
-<h2>Jobs</h2>
+<div nz-row nzJustify="space-between">
+  <h2>Jobs</h2>
+  <div>
+    <button [nzLoading]="isLoading" (click)="onReload()" nz-button>Reload</button>
+    <button class="ml-1" routerLink="/jobs/create" nz-button nzType="primary">Create job</button>
+  </div>
+</div>
 <ng-container *ngIf="jobs$ | async as jobs">
   <ng-container *ngIf="jobs.length; else noJobs"></ng-container>
-  <div class="jobs">
-    <app-job-card (editClicked)="onEdit(job)" (deleteClicked)="onDelete(job)" *ngFor="let job of jobs; let first = first" [job]="job"></app-job-card>
+  <div [ngClass]="{ 'mt-2': !first }" *ngFor="let job of jobs; let first = first">
+    <app-job-card (editClicked)="onEdit(job)" (deleteClicked)="onDelete(job)" [job]="job"></app-job-card>
   </div>
   <ng-template #noJobs>
-    <div class="ta-center mt-10">
-      <mat-hint>No jobs found</mat-hint>
-      <p>
-        <a color="primary" [routerLink]="['/create']" mat-button>Create one</a>
-        or
-        <button (click)="onReload()" color="primary" mat-button>Reload</button>
-      </p>
-    </div>
+    <nz-empty nzNotFoundContent="No jobs." [nzNotFoundFooter]="footerTpl">
+      <ng-template #footerTpl>
+        <button nz-button routerLink="/jobs/create">Create one</button>
+      </ng-template>
+    </nz-empty>
   </ng-template>
 </ng-container>
-
-<a routerLink="/create" color="primary" style="position: fixed; bottom: 40px; right: 40px" mat-fab>
-  <mat-icon>add</mat-icon>
-</a>

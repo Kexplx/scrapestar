@@ -1,7 +1,7 @@
 @import 'src/styles/utils';
 @import 'src/styles/colors';
 
-.banner-top {
-  height: 5px;
-  background-color: $primary;
+h1 {
+  text-decoration: underline;
+  text-decoration-color: #1890ff;
 }

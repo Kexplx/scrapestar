@@ -1,55 +1,5 @@
 @import 'src/styles/utils';
 
-.container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 20px;
-  display: grid;
-  gap: 10px;
-}
-
-.form-footer {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.selector-container {
-  display: grid;
-}
-
-.selectors-header {
-  display: grid;
-  grid-template-columns: auto au;
-}
-
-mat-form-field {
-  width: 100%;
-}
-
-.selector {
-  display: grid;
-  width: 100%;
-  gap: 0 10px;
-  align-items: center;
-  grid-template-columns: auto 1fr auto auto;
-
-  pre {
-    font-size: 13px;
-    margin: 3px;
-  }
-
-  mat-icon {
-    font-size: 20px;
-  }
-}
-
-.add-button {
-  text-align: end;
-  margin-top: 10px;
-}
-
-.no-selectors-hint-container {
-  text-align: center;
-  width: 100%;
+nz-form-item {
+  margin: 0 0 10px;
 }

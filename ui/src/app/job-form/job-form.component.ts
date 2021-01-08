@@ -1,15 +1,5 @@
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ExecutionTime } from '../models/execution-time';
 import { Job } from '../models/job';
 import { Selector } from '../models/selector';
@@ -21,43 +11,49 @@ import { Selector } from '../models/selector';
 })
 export class JobFormComponent implements OnInit {
   @Input() job: Job | undefined;
+  @Input() isLoading = false;
   @Output() submitted = new EventEmitter<Job>();
   @Output() cancelled = new EventEmitter();
 
-  name = '';
-  url = '';
-  description = '';
+  metainformationGroup = this.fb.group({
+    name: [null, Validators.required],
+    url: [null, Validators.required],
+  });
 
-  selectorName = '';
-  cssSelector = '';
+  selectorGroup = this.fb.group({
+    name: [null, Validators.required],
+    cssSelector: [null, Validators.required],
+  });
 
-  dayOfWeek = 1; // Monday
-  hourControl = new FormControl(8, [Validators.min(0), Validators.max(24)]);
-  minuteControl = new FormControl(0, [Validators.min(0), Validators.max(59)]);
+  executionTimeGroup = this.fb.group({
+    dayOfWeek: 1,
+    hour: [8, [Validators.min(0), Validators.max(24)]],
+    minute: [0, [Validators.min(0), Validators.max(59)]],
+  });
 
   selectors: Selector[] = [];
   executionTimes: ExecutionTime[] = [];
+
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
     if (this.job) {
       const { name, url, executionTimes, selectors } = this.job;
 
-      this.name = name;
-      this.url = url;
+      this.metainformationGroup.setValue({ name, url });
+
       this.selectors = [...selectors];
       this.executionTimes = [...executionTimes];
     }
   }
 
   onAddSelector() {
-    const name = this.selectorName.replace(/\s/g, ''); // Remove all whitespaces.
-    const cssSelector = this.cssSelector;
+    const name = this.selectorGroup.controls.name.value;
+    const cssSelector = this.selectorGroup.controls.cssSelector.value;
 
     this.selectors.push({ name, cssSelector });
 
-    // Reset fields
-    this.selectorName = '';
-    this.cssSelector = '';
+    this.selectorGroup.reset();
   }
 
   onRemoveSelector(selector: Selector) {
@@ -69,16 +65,27 @@ export class JobFormComponent implements OnInit {
   }
 
   onAddExecutionTime() {
-    const dayOfWeek = this.dayOfWeek;
-    const hour = this.hourControl.value;
-    const minute = this.minuteControl.value;
+    const dayOfWeek = this.executionTimeGroup.controls.dayOfWeek.value;
+    const hour = this.executionTimeGroup.controls.hour.value;
+    const minute = this.executionTimeGroup.controls.minute.value;
 
     this.executionTimes.push({ dayOfWeek, hour, minute });
 
-    // Reset fields
-    this.dayOfWeek = (dayOfWeek + 1) % 7; // Saturday -> Sunday, Sunday -> Monday
-    this.hourControl.setValue(8);
-    this.minuteControl.setValue(0);
+    this.executionTimeGroup.setValue({ dayOfWeek: dayOfWeek + (1 % 7), hour: 8, minute: 0 });
+  }
+
+  onCheckMetainformationValidity() {
+    for (const i in this.metainformationGroup.controls) {
+      this.metainformationGroup.controls[i].markAsDirty();
+      this.metainformationGroup.controls[i].updateValueAndValidity();
+    }
+  }
+
+  onCheckSelectorFormValidity() {
+    for (const i in this.selectorGroup.controls) {
+      this.selectorGroup.controls[i].markAsDirty();
+      this.selectorGroup.controls[i].updateValueAndValidity();
+    }
   }
 
   onRemoveExecutionTime(et: ExecutionTime) {
@@ -92,8 +99,8 @@ export class JobFormComponent implements OnInit {
   onSubmit() {
     const job: Job = {
       ...this.job,
-      name: this.name,
-      url: this.url,
+      name: this.metainformationGroup.controls.name.value,
+      url: this.metainformationGroup.controls.url.value,
       selectors: this.selectors,
       executionTimes: this.executionTimes,
     };

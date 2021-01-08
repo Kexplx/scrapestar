@@ -1,7 +1,3 @@
-```diff
-- Project is in alpha - doesn't work yet.
-```
-
 ![CI master api](https://github.com/Kexplx/scrape-app/workflows/CI%20master%20api/badge.svg)
 ![CI master ui](https://github.com/Kexplx/scrape-app/workflows/CI%20master%20ui/badge.svg)
 
