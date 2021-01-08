@@ -1,0 +1,50 @@
+<nz-card [nzTitle]="job.name" nzDescription="Created 08.01.2020" nzBorderless [nzActions]="[actionDelete, actionEdit]">
+  <nz-card-tab>
+    <nz-tabset [(nzSelectedIndex)]="tabIndex">
+      <nz-tab nzTitle="Metainformation"></nz-tab>
+      <nz-tab nzTitle="Selectors"></nz-tab>
+      <nz-tab nzTitle="Execution times"></nz-tab>
+    </nz-tabset>
+  </nz-card-tab>
+
+  <!-- Metainformation -->
+  <ng-container *ngIf="tabIndex == 0">
+    <nz-descriptions nzSize="small" nzBordered>
+      <nz-descriptions-item nzTitle="URL" [nzSpan]="3">
+        {{ job.url }}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Results" [nzSpan]="3">
+        <pre>{{ job.selectors | json }}</pre>
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Endpoint" [nzSpan]="3">
+        <button nz-button nzType="dashed"><i nz-icon nzType="copy"></i>http://locahost:3000/jobs/10231239/results</button>
+      </nz-descriptions-item>
+    </nz-descriptions>
+  </ng-container>
+
+  <!-- Selectors -->
+  <ng-container *ngIf="tabIndex == 1">
+    <nz-descriptions nzSize="small" nzBordered>
+      <nz-descriptions-item *ngFor="let selector of job.selectors" [nzTitle]="selector.name" [nzSpan]="3">
+        {{ selector.cssSelector }}
+      </nz-descriptions-item>
+    </nz-descriptions>
+  </ng-container>
+
+  <!-- Execution times -->
+  <!-- Sunday: 8:13, 9:00, 10:15 -->
+  <ng-container *ngIf="tabIndex == 2">
+    <nz-descriptions nzSize="small" nzBordered>
+      <nz-descriptions-item *ngFor="let executionTime of job.executionTimes" [nzSpan]="3" [nzTitle]="executionTime.dayOfWeek | weekday">
+        {{ executionTime.hour | zeroprefix }}: {{ executionTime.minute | zeroprefix }}
+      </nz-descriptions-item>
+    </nz-descriptions>
+  </ng-container>
+</nz-card>
+
+<ng-template #actionDelete>
+  <i (click)="onDelete()" nz-icon nzType="delete"></i>
+</ng-template>
+<ng-template #actionEdit>
+  <i (click)="onEdit()" nz-icon nzType="edit"></i>
+</ng-template>
