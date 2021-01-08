@@ -8,7 +8,6 @@ import { Job } from '../models/job';
 @Component({
   selector: 'app-edit-job',
   templateUrl: './edit-job.component.html',
-  styleUrls: ['./edit-job.component.scss'],
 })
 export class EditJobComponent implements OnInit {
   isLoading = false;

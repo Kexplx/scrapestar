@@ -11,7 +11,7 @@ import { switchMap, tap } from 'rxjs/operators';
   styleUrls: ['./job-list.component.scss'],
 })
 export class JobListComponent implements OnInit {
-  jobs$ = this.jobService.loadJobs();
+  jobs$ = this.jobService.getAll();
   isLoading = false;
 
   constructor(private jobService: JobService, private router: Router, private title: Title) {}
@@ -22,7 +22,7 @@ export class JobListComponent implements OnInit {
 
   onReload() {
     this.isLoading = true;
-    this.jobs$ = this.jobService.loadJobs().pipe(tap(() => (this.isLoading = false)));
+    this.jobs$ = this.jobService.getAll().pipe(tap(() => (this.isLoading = false)));
   }
 
   onEdit(job: Job) {
@@ -32,6 +32,6 @@ export class JobListComponent implements OnInit {
   }
 
   onDelete(job: Job) {
-    this.jobs$ = this.jobService.delete(job).pipe(switchMap(() => this.jobService.loadJobs()));
+    this.jobs$ = this.jobService.delete(job).pipe(switchMap(() => this.jobService.getAll()));
   }
 }

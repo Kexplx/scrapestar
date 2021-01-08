@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Job } from './models/job';
 
 @Injectable({
@@ -8,10 +7,13 @@ import { Job } from './models/job';
 })
 export class JobService {
   private readonly baseUrl = 'http://localhost:3000/jobs';
+
   constructor(private http: HttpClient) {}
 
-  postJob(job: Job): Observable<Job> {
-    return this.http.post<Job>(this.baseUrl, job);
+  getAll() {
+    const url = this.baseUrl;
+
+    return this.http.get<Job[]>(url);
   }
 
   get(id: string) {
@@ -20,10 +22,8 @@ export class JobService {
     return this.http.get<Job>(url);
   }
 
-  loadJobs() {
-    const url = this.baseUrl;
-
-    return this.http.get<Job[]>(url);
+  postJob(job: Job) {
+    return this.http.post<Job>(this.baseUrl, job);
   }
 
   updateJob(job: Job) {
