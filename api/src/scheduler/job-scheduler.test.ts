@@ -1,9 +1,9 @@
 import { ExecutionTime } from '../interfaces/execution-time';
-import { Job } from '../job';
+import { Job } from '../job/job';
 import { JobScheduler } from './job-scheduler';
 
-let storeMock: any = { updateResult: jest.fn(async () => {}) };
-let scheduler = JobScheduler.getInstance(storeMock as any);
+let storeMock: any;
+let scheduler: JobScheduler;
 
 beforeEach(() => {
   // 04.01.2021 8:25
@@ -13,7 +13,7 @@ beforeEach(() => {
   jest.setSystemTime(monday8h25m.getTime());
 
   storeMock = { updateResult: jest.fn(async () => {}) };
-  scheduler = JobScheduler.getInstance(storeMock as any);
+  scheduler = new JobScheduler(storeMock);
 });
 
 describe('#schedule', () => {
