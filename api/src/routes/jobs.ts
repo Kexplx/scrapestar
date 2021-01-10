@@ -1,21 +1,26 @@
 import { Router } from 'express';
 import { JobDtoStore } from '../job-dto-store';
-import { JobScheduler } from '../job-scheduler';
-import { Job } from '../job';
+import { JobScheduler } from '../scheduler/job-scheduler';
 import { JobDto } from '../interfaces/job-dto';
+import { Job } from '../job/job';
 
-/**
- * Router for handling requests to `/jobs`.
- */
 export const router = Router();
 
-const store = JobDtoStore.getInstance();
-const scheduler = JobScheduler.getInstance(store);
+const store = new JobDtoStore();
+const scheduler = new JobScheduler(store);
 
 router.get('/', async (_, res) => {
   const jobDtos = await store.findAll();
 
   res.send(jobDtos);
+});
+
+router.get('/:id', async (req, res) => {
+  const id = req.params.id;
+
+  const jobDto = await store.find(id);
+
+  res.send(jobDto);
 });
 
 router.get('/:id/result', async (req, res) => {
@@ -30,7 +35,7 @@ router.post('/', async (req, res) => {
   const jobDto: JobDto = req.body;
   const job = new Job(jobDto);
 
-  // Execute job once immediately so client can see the results right away.
+  // Execute job once immediately.
   await job.execute();
   job.id = await store.insert(job.dto);
 
@@ -40,8 +45,22 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
+  const id = req.params.id;
   const jobDto: JobDto = req.body;
 
-  await store.update(jobDto);
+  await store.update(id, jobDto);
+
+  scheduler.cancel(id);
+  scheduler.schedule(new Job(jobDto));
+
+  res.end();
+});
+
+router.delete('/:id', async (req, res) => {
+  const id = req.params.id;
+
+  await store.delete(id);
+  scheduler.cancel(id);
+
   res.end();
 });
