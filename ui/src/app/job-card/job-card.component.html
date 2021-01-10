@@ -10,17 +10,16 @@
   <!-- Metainformation -->
   <ng-container *ngIf="tabIndex == 0">
     <nz-descriptions nzSize="small" nzBordered>
-      <nz-descriptions-item nzTitle="URL" [nzSpan]="3">
+      <nz-descriptions-item nzTitle="URL" nzSpan="3">
         {{ job.url }}
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Results" [nzSpan]="3">
-        <pre>{{ job.selectors | json }}</pre>
+      <nz-descriptions-item *ngIf="job.executionResult" nzTitle="Results" nzSpan="3">
+        <pre>{{ job.executionResult | json }}</pre>
       </nz-descriptions-item>
-      <nz-descriptions-item *ngIf="nextExecution" nzTitle="Next execution" [nzSpan]="3">
-        <nz-countdown [nzValue]="nextExecution!.getTime()" [nzTitle]="$any(nextExecution | date: 'dd.MM.yyyy HH:mm')"> </nz-countdown>
-      </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Endpoint" [nzSpan]="3">
-        <button (click)="onCopyClipboard()" [cdkCopyToClipboard]="'copied'" nz-button nzType="dashed"><i nz-icon nzType="copy"></i>http://locahost:3000/jobs/10231239/results</button>
+      <nz-descriptions-item nzTitle="Endpoint" nzSpan="3">
+        <button (click)="onCopyClipboard()" [cdkCopyToClipboard]="'http://localhost:3000/jobs/' + $any(job._id) + '/result'" nz-button nzType="dashed">
+          <i nz-icon nzType="copy"></i>http://localhost:3000/jobs/{{ job._id }}/result
+        </button>
       </nz-descriptions-item>
     </nz-descriptions>
   </ng-container>
