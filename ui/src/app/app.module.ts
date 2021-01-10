@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { CreateJobComponent } from './create-job/create-job.component';
@@ -10,7 +10,6 @@ import { JobCardComponent } from './job-card/job-card.component';
 import { JobFormComponent } from './job-form/job-form.component';
 import { JobListComponent } from './job-list/job-list.component';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpProxy } from './http-proxy';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { JobCreatedResultComponent } from './create-job/job-created-result/job-created-result.component';
@@ -44,7 +43,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     SharedModule,
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpProxy, multi: true }],
+  // providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpProxy, multi: true }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
