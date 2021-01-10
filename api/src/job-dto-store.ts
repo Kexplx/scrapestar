@@ -1,35 +1,22 @@
-import { Collection, MongoClient, ObjectId } from 'mongodb';
+import { Collection, MongoClient, MongoClientOptions, ObjectId } from 'mongodb';
 import { inProduction } from './env/in-production';
+import { ExecutionResult } from './interfaces/execution-result';
 import { JobDto } from './interfaces/job-dto';
 
 // If we're in production, change the
 // hostname to the mongodb container name.
 const MONGODB_URL = inProduction
-  ? 'mongodb://scrape-app__mongodb:27017'
+  ? 'mongodb://scrapestar__mongodb:27017'
   : 'mongodb://localhost:27017';
 
-const DB_NAME = 'scrape-app';
+const DB_NAME = 'scrapestar';
 const COLLECTION_NAME = 'jobs';
 
 export class JobDtoStore {
-  private static instance: JobDtoStore | undefined;
-
-  private client = new MongoClient(MONGODB_URL, {
+  private readonly mongoClientOptions: MongoClientOptions = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-  });
-
-  // Private constructor to prevent direct construction calls.
-  // Clients should use the `getInstance` method.
-  private constructor() {}
-
-  static getInstance(): JobDtoStore {
-    if (!JobDtoStore.instance) {
-      JobDtoStore.instance = new JobDtoStore();
-    }
-
-    return JobDtoStore.instance;
-  }
+  };
 
   async insert(dto: JobDto): Promise<string> {
     const [collection, client] = await this.connect();
@@ -40,11 +27,22 @@ export class JobDtoStore {
     return insertedId;
   }
 
-  async update(dto: JobDto): Promise<void> {
-    const _id = new ObjectId(dto._id);
+  async update(id: string, dto: JobDto): Promise<void> {
+    const _id = new ObjectId(id);
     const [collection, client] = await this.connect();
 
-    await collection.updateOne({ _id }, dto);
+    delete dto._id; // Delete _id to not overwrite it.
+    await collection.updateOne({ _id }, { $set: dto });
+
+    client.close();
+  }
+
+  async updateResult(id: string, executionResult: ExecutionResult): Promise<void> {
+    const _id = new ObjectId(id);
+    const [collection, client] = await this.connect();
+
+    await collection.updateOne({ _id }, { $set: { executionResult } });
+
     client.close();
   }
 
@@ -76,7 +74,9 @@ export class JobDtoStore {
   }
 
   private async connect(): Promise<[Collection, MongoClient]> {
-    const client = await this.client.connect();
+    const client = new MongoClient(MONGODB_URL, this.mongoClientOptions);
+
+    await client.connect();
     const db = client.db(DB_NAME);
     const collection = db.collection(COLLECTION_NAME);
 
