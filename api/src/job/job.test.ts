@@ -5,6 +5,9 @@ import { tmpdir } from 'os';
 import { nanoid } from 'nanoid';
 import { writeFileSync } from 'fs';
 
+// A regular html document that consists
+// of basic elements, comments and embedded
+// js that adds elements to the DOM after page load.
 const html = `
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +23,7 @@ const html = `
     <div>
       <button class="someClass">Button content</button>
     </div>
-    <p name="para">Para content</p>
+    <p name="para">Paragraph content</p>
     <span id="mySpan">Span content</span>
 
     <script>
@@ -31,7 +34,7 @@ const html = `
 `;
 
 describe('#execute', () => {
-  it('should scrape the page and save the results in job.executionResult', async () => {
+  it('should scrape the page and save the results in executionResult', async () => {
     const server = serveHtml(html);
 
     const job = new Job({
@@ -52,7 +55,7 @@ describe('#execute', () => {
     expect(job.dto.executionResult).toMatchObject({
       'data-a': 'Header content',
       'data-b': 'Button content',
-      'data-c': 'Para content',
+      'data-c': 'Paragraph content',
       'data-d': 'Span content',
       'data-e': 'Link content',
     });

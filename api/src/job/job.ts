@@ -55,7 +55,7 @@ export class Job {
    *
    * 1. Loads the page by the jobs url
    * 2. Scrapes the page with the jobs selectors
-   * 3. Saves the scrape result in `result`
+   * 3. Saves the results in `executionResult`
    *
    * @example
    * await job.execute()
