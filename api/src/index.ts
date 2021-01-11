@@ -2,7 +2,6 @@ import express from 'express';
 import { JobDtoStore } from './job-dto-store';
 import { JobScheduler } from './scheduler/job-scheduler';
 import { router as jobRouter } from './routes/jobs';
-import { errorHandler } from './middleware/error-handler';
 import cors from 'cors';
 import { Job } from './job/job';
 
@@ -25,7 +24,6 @@ const PORT = 3000;
 
   // Setup middleware and routes.
   app.use(cors());
-  app.use(errorHandler);
   app.use(express.json());
 
   app.use('/jobs', jobRouter);
