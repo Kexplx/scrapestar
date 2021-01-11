@@ -12,7 +12,7 @@ beforeEach(() => {
   jest.useFakeTimers('modern');
   jest.setSystemTime(monday8h25m.getTime());
 
-  storeMock = { updateResult: jest.fn(async () => {}) };
+  storeMock = { update: jest.fn(async () => {}) };
   scheduler = new JobScheduler(storeMock);
 });
 
