@@ -33,7 +33,7 @@
   <p nz-typography nzType="secondary">Specify the name of the data you want to scrape and the CSS selector of the corresponding HTML element.</p>
   <nz-descriptions class="mb-2" *ngIf="selectors.length" nzSize="small" nzBordered>
     <nz-descriptions-item [nzTitle]="selector.name" *ngFor="let selector of selectors" nzSpan="3">
-      <div nzJustify="space-between" style="align-items: center;" nz-row>
+      <div nzJustify="space-between" style="align-items: center" nz-row>
         <span nz-col nzSpan="20">
           {{ selector.cssSelector }}
         </span>
@@ -55,7 +55,7 @@
       <nz-form-control nzErrorTip="Please provide a CSS selector">
         <input nz-input placeholder="#www-wikipedia-org > div.central-textlogo > h1 > span" formControlName="cssSelector" />
       </nz-form-control>
-      <span style="margin-top: 2px;" nz-typography nzType="secondary">
+      <span style="margin-top: 2px" nz-typography nzType="secondary">
         We'll use the CSS selector like this
         <a target="_blank" href="https://github.com/Kexplx/scrapestar/blob/master/api/src/job.ts#L53-L94">(source)</a>:
         <code>document.querySelector(YOUR_CSS_SELECTOR).textContent</code>
@@ -73,7 +73,7 @@
   <p nz-typography nzType="secondary">Add execution times to specify when this job should execute. For example, [Monday, 8, 25] will execute the job <strong>every</strong> monday at 8:25 AM.</p>
   <nz-descriptions *ngIf="executionTimes.length" class="mb-2" nzSize="small" nzBordered>
     <nz-descriptions-item *ngFor="let executionTime of executionTimes" [nzSpan]="3" [nzTitle]="executionTime.dayOfWeek | weekday">
-      <div nzJustify="space-between" style="align-items: center;" nz-row>
+      <div nzJustify="space-between" style="align-items: center" nz-row>
         <span nz-col nzSpan="20"> {{ executionTime.hour | zeroprefix }}:{{ executionTime.minute | zeroprefix }} </span>
         <button (click)="onDeleteExecutionTime(executionTime)" nz-col nz-button nzType="text">
           <i nz-icon nzType="delete"></i>
@@ -100,13 +100,13 @@
       <nz-form-item class="pl-1" nz-col nzSpan="6">
         <nz-form-label nzRequired>Hour</nz-form-label>
         <nz-form-control>
-          <nz-input-number [nzMax]="24" [nzMin]="0" style="width: 100%;" formControlName="hour"></nz-input-number>
+          <nz-input-number [nzMax]="24" [nzMin]="0" style="width: 100%" formControlName="hour"></nz-input-number>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item class="pl-1" nz-col nzSpan="6">
         <nz-form-label nzRequired>Minute</nz-form-label>
         <nz-form-control>
-          <nz-input-number [nzMax]="59" [nzMin]="0" style="width: 100%;" formControlName="minute"></nz-input-number>
+          <nz-input-number [nzMax]="59" [nzMin]="0" style="width: 100%" formControlName="minute"></nz-input-number>
         </nz-form-control>
       </nz-form-item>
     </div>
