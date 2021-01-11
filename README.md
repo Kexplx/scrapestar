@@ -1,17 +1,15 @@
 ![CI master api](https://github.com/Kexplx/scrapestar/workflows/CI%20master%20api/badge.svg)
 ![CI master ui](https://github.com/Kexplx/scrapestar/workflows/CI%20master%20ui/badge.svg)
 
-# HTML Scrapestar
+# ⭐ Scrapestar ⭐
 
-An app for scheduling jobs which periodically scrape the content of a web page and expose the results through a REST API.
+HTML scraping made easy. Setup jobs, and retrieve the results through a REST API.
+
+<a href="https://www.youtube.com/embed/V1UMi-HkJvI" target="_blank">Demo</a>
 
 ## Prerequisities
 
 In order to run the project you'll need docker and docker compose installed.
-
-- [Windows](https://docs.docker.com/windows/started)
-- [OS X](https://docs.docker.com/mac/started/)
-- [Linux](https://docs.docker.com/linux/started/)
 
 ### Usage
 
@@ -24,9 +22,8 @@ docker-compose up
 Afterwards, the following endpoints should be available.
 
 <ul>
-  <li><b>UI</b>: http://localhost:5000</li>
+  <li><b>UI</b>: http://localhost:5005</li>
   <li><b>API</b>: http://localhost:3000/jobs</li>
-  <li><b>MongoDB</b>: mongodb://scrapestar__mongodb:27017</li>
 </ul>
 
 ## Contribute
