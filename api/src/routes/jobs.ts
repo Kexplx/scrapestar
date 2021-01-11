@@ -47,11 +47,12 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   const id = req.params.id;
   const jobDto: JobDto = req.body;
+  const job = new Job(jobDto);
 
   await store.update(id, jobDto);
 
   scheduler.cancel(id);
-  scheduler.schedule(new Job(jobDto));
+  scheduler.schedule(job);
 
   res.end();
 });
