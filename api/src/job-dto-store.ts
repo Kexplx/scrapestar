@@ -24,24 +24,22 @@ export class JobDtoStore {
     const { insertedId } = await collection.insertOne(dto);
     client.close();
 
-    return insertedId;
+    return insertedId.toHexString();
   }
 
   async update(id: string, dto: JobDto): Promise<void> {
-    const _id = new ObjectId(id);
+    const _id = ObjectId.createFromHexString(id);
     const [collection, client] = await this.connect();
 
     const dtoCopy = { ...dto };
     delete dtoCopy._id; // Delete _id to not overwrite it.
     await collection.updateOne({ _id }, { $set: dtoCopy });
 
-    await collection.updateOne({ _id }, { $set: { executionResult } });
-
     client.close();
   }
 
   async delete(id: string): Promise<void> {
-    const _id = new ObjectId(id);
+    const _id = ObjectId.createFromHexString(id);
     const [collection, client] = await this.connect();
 
     await collection.deleteOne({ _id });
@@ -49,7 +47,7 @@ export class JobDtoStore {
   }
 
   async find(id: string): Promise<JobDto> {
-    const _id = new ObjectId(id);
+    const _id = ObjectId.createFromHexString(id);
     const [collection, client] = await this.connect();
 
     const dto = await collection.findOne({ _id });
