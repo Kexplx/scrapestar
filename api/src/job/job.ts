@@ -62,7 +62,9 @@ export class Job {
    * job.dto.executionResult // Results of the last execution.
    */
   async execute(): Promise<void> {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });
     const page = await browser.newPage();
 
     // Don't crash on invalid url.
@@ -83,7 +85,9 @@ export class Job {
       for (const { cssSelector, name } of selectors) {
         const textContent = document.querySelector(cssSelector)?.textContent ?? '';
 
-        scrapeResult[name] = textContent.replace(/\s\s+/g, ' '); // Remove newlines, tabs and consecutive spaces.
+        // Remove newlines, tabs, consecutive spaces and trim.
+        const textContentClean = textContent.replace(/\s\s+/g, ' ').trim();
+        scrapeResult[name] = textContentClean;
       }
 
       return scrapeResult;
