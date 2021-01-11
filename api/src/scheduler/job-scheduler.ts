@@ -18,10 +18,9 @@ export class JobScheduler {
 
       const scheduledExecution = scheduleJob(rule, async () => {
         await job.execute();
-        const result = job.dto.executionResult;
 
-        if (result) {
-          this.store.updateResult(job.id, result);
+        if (job.dto.executionResult) {
+          this.store.update(job.id, job.dto);
         }
       });
 
@@ -33,10 +32,12 @@ export class JobScheduler {
   cancel(id: string): void {
     const scheduledExecutions = this.scheduledExecutionsPerJob.get(id);
 
-    for (const execution of scheduledExecutions!) {
-      execution.cancel();
-    }
+    if (scheduledExecutions) {
+      for (const execution of scheduledExecutions) {
+        execution.cancel();
+      }
 
-    this.scheduledExecutionsPerJob.delete(id);
+      this.scheduledExecutionsPerJob.delete(id);
+    }
   }
 }
