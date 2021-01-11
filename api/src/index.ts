@@ -25,7 +25,6 @@ const PORT = 3000;
   // Setup middleware and routes.
   app.use(cors());
   app.use(express.json());
-
   app.use('/jobs', jobRouter);
 
   app.listen(PORT, () => console.log(`API listening on port ${PORT}`));
