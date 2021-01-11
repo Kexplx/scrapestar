@@ -1,6 +1,14 @@
-<nz-result nzStatus="success" nzTitle="Success!" [nzSubTitle]="'Job with id: ' + $any(job!._id) + ' was created and scheduled.'">
+<nz-result nzStatus="success" nzTitle="Success!" [nzSubTitle]="titleTmpl">
   <div nz-result-extra>
     <button routerLink="/jobs" nz-button nzType="primary">Go to Jobs</button>
     <button routerLink="/jobs/create" nz-button>Create another one</button>
   </div>
 </nz-result>
+
+<ng-template #titleTmpl>
+  <div nz-row nzJustify="center">
+    <span nz-typography nzType="secondary">
+      Job with id: <strong>{{ job!._id }}</strong> was created and executed.
+    </span>
+  </div>
+</ng-template>
