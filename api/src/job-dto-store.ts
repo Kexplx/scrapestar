@@ -31,15 +31,9 @@ export class JobDtoStore {
     const _id = new ObjectId(id);
     const [collection, client] = await this.connect();
 
-    delete dto._id; // Delete _id to not overwrite it.
-    await collection.updateOne({ _id }, { $set: dto });
-
-    client.close();
-  }
-
-  async updateResult(id: string, executionResult: ExecutionResult): Promise<void> {
-    const _id = new ObjectId(id);
-    const [collection, client] = await this.connect();
+    const dtoCopy = { ...dto };
+    delete dtoCopy._id; // Delete _id to not overwrite it.
+    await collection.updateOne({ _id }, { $set: dtoCopy });
 
     await collection.updateOne({ _id }, { $set: { executionResult } });
 
