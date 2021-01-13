@@ -3,13 +3,15 @@
 
 # ⭐ Scrapestar ⭐
 
-HTML scraping made easy. Setup jobs, and retrieve the results through a REST API.
+HTML scraping made easy. Schedule recurring jobs and fetch their results from a simple REST API.
 
-<a href="https://www.youtube.com/embed/V1UMi-HkJvI" target="_blank">Demo</a>
+See the <a href="https://www.youtube.com/watch?v=V1UMi-HkJvI" target="_blank">Demo</a> on YouTube.
 
-## Prerequisities
+## Prerequisites
 
-In order to run the project you'll need docker and docker compose installed.
+In order to run the project you'll need <strong>docker</strong> and <strong>docker-compose</strong> installed.
+
+Because of a modern `docker-compose.yml` format, you need a docker-compose version >= 1.6.
 
 ### Usage
 
@@ -19,13 +21,13 @@ In order to run the project you'll need docker and docker compose installed.
 docker-compose up
 ```
 
-Afterwards, the following endpoints should be available.
+The following endpoints should be available:
 
 <ul>
-  <li><b>UI</b>: http://localhost:5005</li>
-  <li><b>API</b>: http://localhost:3000/jobs</li>
+  <li><b>UI</b> at <i>http://localhost:5005</i></li>
+  <li><b>API</b> at <i>http://localhost:3000/jobs</i></li>
 </ul>
 
 ## Contribute
 
-Run `npm run format` inside `/ui` or `/api` before pushing to apply our style guidelines and make the linter pass.
+Run `npm run format` inside `/ui` or `/api` before pushing to apply our style guidelines and make the linter pass 👍.
