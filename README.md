@@ -24,8 +24,8 @@ docker-compose up
 The following endpoints should be available:
 
 <ul>
-  <li><b>UI</b> at <i>http://localhost:5005</i></li>
-  <li><b>API</b> at <i>http://localhost:3000/jobs</i></li>
+  <li><b>UI</b> at http://localhost:5005</li>
+  <li><b>API</b> at http://localhost:3000/jobs</li>
 </ul>
 
 ## Contribute
