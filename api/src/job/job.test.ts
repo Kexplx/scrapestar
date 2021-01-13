@@ -71,10 +71,7 @@ describe('#execute', () => {
       url: 'invalid url 😊',
     });
 
-    await job.execute();
-
     expect(async () => await job.execute()).not.toThrowError();
-    expect(job.dto.executionResult).toBe(undefined);
   });
 });
 
