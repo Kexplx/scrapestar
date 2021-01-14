@@ -1,0 +1,52 @@
+name: CI master ui
+on: [push]
+jobs:
+  ui-build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./ui
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+
+      - name: Install npm packages
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build for production
+        run: npm run build:prod
+
+      - name: Run unit tests
+        run: npm run test
+
+  api-build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./api
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+
+      - name: Install npm packages
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build for production
+        run: npm run build:prod
+
+      - name: Run unit tests
+        run: npm run test
