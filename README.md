@@ -21,13 +21,11 @@ Because of a modern `docker-compose.yml` format, you need a docker-compose versi
 docker-compose up
 ```
 
-The following endpoints should be available:
-
-<ul>
-  <li><b>UI</b> at http://localhost:5005</li>
-  <li><b>API</b> at http://localhost:3000/jobs</li>
-</ul>
+|         | Endpoint                |
+| ------------- |-------------|
+| UI      | `http://localhost:5005` |
+| API      | `http://localhost:3000` |
 
 ## Contribute
 
-Run `npm run format` inside `/ui` or `/api` before pushing to apply our style guidelines and make the linter pass 👍.
+Please use `npm run format` inside `/ui` or `/api` before pushing to apply our style guidelines and make the linter pass 👍.
