@@ -1,5 +1,4 @@
-![CI master api](https://github.com/Kexplx/scrapestar/workflows/CI%20master%20api/badge.svg)
-![CI master ui](https://github.com/Kexplx/scrapestar/workflows/CI%20master%20ui/badge.svg)
+![CI](https://github.com/Kexplx/scrapestar/workflows/CI/badge.svg)
 
 # ⭐ Scrapestar ⭐
 
