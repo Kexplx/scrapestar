@@ -22,8 +22,8 @@ docker-compose up
 
 |         | Endpoint                |
 | ------------- |-------------|
-| UI      | `http://localhost:5005` |
-| API      | `http://localhost:3000` |
+| UI      | <a href="http://localhost:5005">http://localhost:5005</a> |
+| API      | <a href="http://localhost:5005">http://localhost:3000</a> |
 
 ## Contribute
 
