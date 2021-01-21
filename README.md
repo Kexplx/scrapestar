@@ -19,12 +19,7 @@ Because of a modern `docker-compose.yml` format, you need a docker-compose versi
 ```shell
 docker-compose up
 ```
-
-|         | Endpoint                |
-| ------------- |-------------|
-| UI      | <a href="http://localhost:5005">http://localhost:5005</a> |
-| API      | <a href="http://localhost:5005">http://localhost:3000</a> |
-
+Open the UI at http://localhost:5005 and configure your jobs 🚀.
 ## Contribute
 
-Please use `npm run format` inside `/ui` or `/api` before pushing to apply our style guidelines and make the linter pass 👍.
+Please use `npm run format` inside `/ui` or `/api` before pushing to apply our style guidelines and make the linter pass.
